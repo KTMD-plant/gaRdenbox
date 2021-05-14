@@ -1,0 +1,69 @@
+---
+title: "Extract AT geneids from string"
+author: "Kilian Duijts"
+date: "5/14/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+1. Basic Regex to extrat AT gene id (TAIR) to list.
+
+2. Function to generate regex for AT gene. 
+    Variables:
+        -Genomic/plastid?
+        -specific chromosome?
+        
+3. Write up into package
+
+
+1.
+
+```{r dependancies}
+
+require(stringr)
+require(dplyr)
+
+```
+
+```{r load test file}
+a<-read.delim("Testingdoc.txt", header = FALSE)
+
+
+```
+
+
+```{r basic regex}
+
+
+
+b<-str_extract_all(string = a$V1,
+                pattern =  
+                  "AT(M|C|[:digit:]{1})(G{1})([:digit:]{5})")
+
+```
+
+
+
+```{r extract tair gene id}
+#using stringr
+xtrct_tairid<-function(string){
+  require(stringr)
+  ls_geneid<-str_extract_all(string = string,
+                pattern =  
+                  "AT(M|C|[:digit:]{1})(G{1})([:digit:]{5})")
+  
+  return(ls_geneid)
+}
+
+
+c<-xtrct_tairid(a$V1)
+c
+#using r basic
+
+
+
+```
