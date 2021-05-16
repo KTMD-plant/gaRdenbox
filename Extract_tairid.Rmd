@@ -62,8 +62,9 @@ xtrct_tairid<-function(string){
 
 c<-xtrct_tairid(a$V1)
 c
+
 #using r basic
 
-
+grepexpr(pattern = "AT(M|C|[:digit:]{1})(G{1})([:digit:]{5})", x = a$V1,value = TRUE)
 
 ```

@@ -1,0 +1,5 @@
+Package: getTAIRid
+Type: Package
+Title: Extract TAIR Idenitifiers from text
+Version: 0.0.1.0
+RoxygenNote: 7.1.1
