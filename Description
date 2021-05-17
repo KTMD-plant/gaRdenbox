@@ -1,4 +1,4 @@
-Package: getTAIRid
+Package: gaRdenbox
 Type: Package
 Title: Extract TAIR Idenitifiers from text
 Version: 0.0.1.0
