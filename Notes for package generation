@@ -1,0 +1,13 @@
+notes on package creation.
+
+1.Add features to the description file through usethis:: 
+for example:
+
+usethis::use_package("dplyr")
+
+This does not break the description file like manual edditing might.
+
+
+2. to update documentation file run 
+library(roxygen2); # Read in the roxygen2 R package
+roxygenise();      # Builds the help files
