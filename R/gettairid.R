@@ -4,7 +4,6 @@
 
 
 #dependancy
-require(stringr)
 
 #' Get tair identifier
 #' 
@@ -20,8 +19,7 @@ require(stringr)
 #' 
 #' 
 gettairid<-function(string){
-  require(stringr)
-  ls_geneid<-str_extract_all(string = string,
+  ls_geneid<-stringr::str_extract_all(string = string,
                              pattern =  
                                "AT(M|C|[:digit:]{1})(G{1})([:digit:]{5})")
   
