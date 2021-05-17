@@ -20,7 +20,7 @@
 #' 
 #' 
 gettairid<-function(querytext){
-  ls_geneid<-stringr::str_extract_all(querytext = querytext,
+  ls_geneid<-stringr::str_extract_all(string = querytext,
                              pattern =  
                                "AT(M|C|[:digit:]{1})(G{1})([:digit:]{5})")
   
