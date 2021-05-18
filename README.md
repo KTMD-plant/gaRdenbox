@@ -9,6 +9,5 @@ You are welcome to use them!
 
 To install the package please run:
 
-install.packages("devtools")
-
+install.packages("devtools") 
 devtools::install_github("this git repository path")
