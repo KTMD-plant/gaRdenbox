@@ -121,7 +121,7 @@ f_validate_spec<-function(specify){
 
 
 #MAIN
-gettairid<-function(querytext, exclude_plastid, exclude_nuclear, specify) {                                               
+gettairid2<-function(querytext, exclude_plastid, exclude_nuclear, specify) {                                               
   #if all optional variables are left empty call allid
   if(
     missing(exclude_plastid) & 
@@ -130,13 +130,16 @@ gettairid<-function(querytext, exclude_plastid, exclude_nuclear, specify) {
     ls_geneid<-f_allid(querytext = querytext)
   }
   
-  return(ls_geneid)
-  
+  # return(ls_geneid)
+  # 
   #if exclude plastid is called check for FALSE >pass on, TRUE >call f_nuclid, or ELSE >raise error
   if(
     !missing(exclude_plastid) & 
     missing(exclude_nuclear) & 
     missing(specify)){
+    if (!is.logical(exclude_plastid)) {
+      stop("Error: exclude_plastid is an optional variable. If used it needs to be TRUE or FALSE when used.")
+    }
     if (exclude_plastid==FALSE) {
       explas=FALSE
     }
@@ -144,13 +147,12 @@ gettairid<-function(querytext, exclude_plastid, exclude_nuclear, specify) {
       explas=TRUE
       #call f_nuclid
       ls_geneid<-f_nuclid(querytext = querytext)
-      
-      return(ls_geneid)
-    }
-    else{
-      stop("Error: exclude_plastid is an optional variable. If used it needs to be TRUE or FALSE.")
     }
   }
+      
+      # return(ls_geneid)
+
+
   
   
   #if exclude nuclear is called check for FALSE >pass on, TRUE >call f_plastid, or ESLE >raise error
@@ -158,6 +160,10 @@ gettairid<-function(querytext, exclude_plastid, exclude_nuclear, specify) {
     missing(exclude_plastid) & 
     !missing(exclude_nuclear) & 
     missing(specify)){
+    if (!is.logical(exclude_nuclear)) {
+      stop("Error: exclude_nuclear is an optional variable. If used it needs to be TRUE or FALSE when used.")
+      
+    }
     if (exclude_nuclear==FALSE) {
       exnucl=FALSE
     }
@@ -166,11 +172,9 @@ gettairid<-function(querytext, exclude_plastid, exclude_nuclear, specify) {
       #call f_plastid function
       ls_geneid<-f_plastid(querytext = querytext)
       
-      return(ls_geneid)
+      
     }
-    else{
-      stop("Error: exclude_nuclear is an optional variable. If used it needs to be TRUE or FALSE.")
-    }
+    # return(ls_geneid)
   }
   
   #if specifiy is called check if it is a vector
@@ -185,9 +189,9 @@ gettairid<-function(querytext, exclude_plastid, exclude_nuclear, specify) {
     #call f_spec
   ls_geneid<-f_spec(querytext = querytext,specify = specify, validation = pass)
   
-  return(ls_geneid)
-  }
   
+  }
+  # return(ls_geneid)
   
   ##edge cases
   #if exclude nuclear is true and specify is spedified >raise error
@@ -195,6 +199,6 @@ gettairid<-function(querytext, exclude_plastid, exclude_nuclear, specify) {
   
   
   #if explas & exnucl ==FALSE raise ERROR, wtf do you want? 
-
+return(ls_geneid)
 
 }
