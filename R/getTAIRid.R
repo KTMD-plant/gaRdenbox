@@ -2,44 +2,8 @@
 
 
 
+#FUNCTIONS
 
-#dependancy
-
-#' Get TAIR identifier
-#' 
-#' Extract arabidopsis (TAIR) gene identifiers from a text. These identifiers conform to the following structure:
-#' 
-#' "AT" 
-#' followed by the chromosome number the gene is located on; 
-#' 
-#' or alternatively a M for mitochondria or C for chloroplast if the gene is located on one of the plastid genomes.
-#' 
-#' "G" followed by 
-#' five-digit code, numbered from top/north to bottom/south of chromosome
-#' 
-#' Example of gene id: 
-#' nuclear: AT3G28291
-#' mitochondrial: ATMG00730
-#' 
-#' Does not extract: transposable elements (these do not follow this naming convention)
-#' For more info on TAIR ID nomenclature see https://www.arabidopsis.org/portals/nomenclature/guidelines.jsp
-#' 
-#' 
-
-#' 
-#' @param querytext The text (character string) containing the gene identifiers. Make sure the character string does not contain quotation marks within.
-#' @param exclude_plastid OPTIONAL - When TRUE excludes identifiers of plastid genes from output (mitochondrial or chloroplastic).
-#' @param exclude_nuclear OPTIONAL - When TRUE excludes identifiers of nuclear genes from output.
-#' @param specify OPTIONAL - Takes character vector of chromosome numbers and/or "M" and "C" for mitochondrial or chloroplastic gene identifiers respectively.
-#' remember to put chromosome numbers in quotation marks.
-#' When OPTIONAL variables are left empty all gene identifiers are extracted.
-#' @return A list of TAIR identifiers found in the querytext.
-#' @examples 
-#' ids<-gettairid(querytext="AT1G19030 AT3G61800,AT2G02200convallisAT5G23670,ATMG00730loreAT3G28291,AT4G07460,AT3G29ATMG00730"
-#' 
-#' 
-#' 
-#' 
 
 
 #function to get all tair id's regardless of chromosme or plastid
@@ -134,6 +98,44 @@ f_logictest<-function(logic_var, name_var){
 }
 
 #MAIN
+
+#dependancy
+
+#' Get TAIR identifier
+#' 
+#' Extract arabidopsis (TAIR) gene identifiers from a text. These identifiers conform to the following structure:
+#' 
+#' "AT" 
+#' followed by the chromosome number the gene is located on; 
+#' 
+#' or alternatively a M for mitochondria or C for chloroplast if the gene is located on one of the plastid genomes.
+#' 
+#' "G" followed by 
+#' five-digit code, numbered from top/north to bottom/south of chromosome
+#' 
+#' Example of gene id: 
+#' nuclear: AT3G28291
+#' mitochondrial: ATMG00730
+#' 
+#' Does not extract: transposable elements (these do not follow this naming convention)
+#' For more info on TAIR ID nomenclature see https://www.arabidopsis.org/portals/nomenclature/guidelines.jsp
+#' 
+#' 
+
+#' 
+#' @param querytext The text (character string) containing the gene identifiers. Make sure the character string does not contain quotation marks within.
+#' @param exclude_plastid OPTIONAL - When TRUE excludes identifiers of plastid genes from output (mitochondrial or chloroplastic).
+#' @param exclude_nuclear OPTIONAL - When TRUE excludes identifiers of nuclear genes from output.
+#' @param specify OPTIONAL - Takes character vector of chromosome numbers and/or "M" and "C" for mitochondrial or chloroplastic gene identifiers respectively.
+#' remember to put chromosome numbers in quotation marks.
+#' When OPTIONAL variables are left empty all gene identifiers are extracted.
+#' @return A list of TAIR identifiers found in the querytext.
+#' @examples 
+#' ids<-gettairid(querytext="AT1G19030 AT3G61800,AT2G02200convallisAT5G23670,ATMG00730loreAT3G28291,AT4G07460,AT3G29ATMG00730"
+#' 
+#' 
+#' 
+#' 
 gettairid<-function(querytext, exclude_plastid, exclude_nuclear, specify) {                                               
   #if all optional variables are left empty call allid
   if(
