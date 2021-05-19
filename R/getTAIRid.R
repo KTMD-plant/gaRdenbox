@@ -2,7 +2,7 @@
 
 
 
-#FUNCTIONS
+#FUNCTIONS USED IN GETTAIRID
 
 
 
@@ -101,16 +101,19 @@ f_logictest<-function(logic_var, name_var){
 
 #dependancy
 
-#' Get TAIR identifier
+#' @title  Get TAIR identifier
 #' 
-#' Extract arabidopsis (TAIR) gene identifiers from a text. These identifiers conform to the following structure:
+#' @description 
+#' Extract arabidopsis (TAIR) gene identifiers from a text. 
 #' 
-#' "AT" 
-#' followed by the chromosome number the gene is located on; 
+#' @details 
+#' These identifiers conform to the following structure:
 #' 
-#' or alternatively a M for mitochondria or C for chloroplast if the gene is located on one of the plastid genomes.
+#' "AT" followed by the 
 #' 
-#' "G" followed by 
+#' Chromosome number, a "M" for mitochondria or a "C" for chloroplast.
+#' 
+#' "G" followed by a
 #' five-digit code, numbered from top/north to bottom/south of chromosome
 #' 
 #' Example of gene id: 
@@ -126,12 +129,17 @@ f_logictest<-function(logic_var, name_var){
 #' @param querytext The text (character string) containing the gene identifiers. Make sure the character string does not contain quotation marks within.
 #' @param exclude_plastid OPTIONAL - When TRUE excludes identifiers of plastid genes from output (mitochondrial or chloroplastic).
 #' @param exclude_nuclear OPTIONAL - When TRUE excludes identifiers of nuclear genes from output.
-#' @param specify OPTIONAL - Takes character vector of chromosome numbers and/or "M" and "C" for mitochondrial or chloroplastic gene identifiers respectively.
+#' @param specify OPTIONAL - Allows you to specify chromosome numbers or "M" or "C" to be included in output.
+#' Takes character vector of chromosome numbers and/or "M" and "C" for mitochondrial or chloroplastic gene identifiers respectively.
 #' remember to put chromosome numbers in quotation marks.
+#' 
+#' 
 #' When OPTIONAL variables are left empty all gene identifiers are extracted.
+#' 
 #' @return A list of TAIR identifiers found in the querytext.
 #' @examples 
 #' ids<-gettairid(querytext="AT1G19030 AT3G61800,AT2G02200convallisAT5G23670,ATMG00730loreAT3G28291,AT4G07460,AT3G29ATMG00730"
+#' @author Kilian Duijts
 #' 
 #' 
 #' 
