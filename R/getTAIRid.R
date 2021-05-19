@@ -194,11 +194,85 @@ gettairid2<-function(querytext, exclude_plastid, exclude_nuclear, specify) {
   # return(ls_geneid)
   
   ##edge cases
-  #if exclude nuclear is true and specify is spedified >raise error
+  #if exclude nuclear is true and specify is specified >raise error
  
   
+  if (
+    (!missing(specify) &
+    !missing(exclude_plastid)) |
+    (!missing(specify) &
+    !missing(exclude_nuclear))
+    ){
+    stop("Error: either use one of the exclude variables or use specify. Both is not supported at the moment.")
+  }
+
+#   #if both exclude nuclear and exlcude plastid is called
+  if (
+    
+     !missing(exclude_plastid)&
+     !missing(exclude_nuclear)
+  ){ 
+    #check for logic
+    if (!is.logical(exclude_plastid)) {
+      #print logic error
+    }
+    if (!is.logical(exclude_nuclear)) {
+      #print logic error
+    }
+    
+    # exclude only plastid
+   
+    if (
+      exclude_plastid==TRUE &
+      exclude_nuclear==FALSE
+    ) {
+      
+      #call f_nucl
+      ls_geneid<-f_nuclid(querytext = querytext)
+      
+    }
+    
+    # exclude only nuclear
+    if (
+      exclude_plastid==FALSE &
+      exclude_nuclear==TRUE
+    ) {
+      
+      #call f_nucl
+      ls_geneid<-f_plastid(querytext = querytext)
+      
+    }
+    
+    # exclude neither >message they can be left empty
+    if (
+      exclude_plastid==FALSE &
+      exclude_nuclear==FALSE
+    ) {
+      
+      #call f_all +warning
+      message("All gene ID's are being extracted. Be aware exclude_plastid and exclude nuclear are optional and can be left empty.")
+      ls_geneid<-f_allid(querytext = querytext)
+    }
+    # exclude both >stop no genes to extract
+    
+     if (
+      exclude_plastid==TRUE &
+      exclude_nuclear==TRUE
+    ) {
+      
+      #raise error >no genes to extract
+      stop("Error: There are no ID's to extract when excluding both nuclear and plastid ID's.")
+      
+    }
+    }
   
-  #if explas & exnucl ==FALSE raise ERROR, wtf do you want? 
+#   if (exclude_nuclear==TRUE &
+#       exclude_plastid==TRUE) {
+#     stop("Error: When excluding both nuclear and plastid genes there are no genes left to extract.")
+#   }
+#   
+# }
+  
 return(ls_geneid)
 
 }
