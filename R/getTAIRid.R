@@ -138,7 +138,20 @@ f_logictest<-function(logic_var, name_var){
 #' 
 #' @return A list of TAIR identifiers found in the querytext.
 #' @examples 
-#' ids<-gettairid(querytext="AT1G19030 AT3G61800,AT2G02200convallisAT5G23670,ATMG00730loreAT3G28291,AT4G07460,AT3G29ATMG00730"
+#' q<-"AT1G19030 AT3G61800,AT2G02200convallisAT5G23670,ATMG00730loreAT3G28291,AT4G07460,AT3G29ATMG00730"
+#' 
+#' ids<-gettairid(querytext=q)
+#' ids:
+#' "AT1G19030" "AT3G61800" "AT2G02200" "AT5G23670" "ATMG00730" "AT3G28291" "AT4G07460" "ATMG00730"
+#' 
+#' ids<-gettairid(querytext = q, exclude_nuclear = TRUE)
+#' ids: "ATMG00730" "ATMG00730"
+#' 
+#' ids<-gettairid(querytext = q, specify = c("3", "5"))
+#' ids: "AT3G61800" "AT5G23670" "AT3G28291"
+#' 
+#' 
+#' 
 #' @author Kilian Duijts
 #' 
 #' 
