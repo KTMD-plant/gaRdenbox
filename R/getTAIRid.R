@@ -156,7 +156,7 @@ f_logictest<-function(logic_var, name_var){
 #' 
 #' 
 #' 
-#' 
+#' @export
 gettairid<-function(querytext, exclude_plastid, exclude_nuclear, specify) {                                               
   #if all optional variables are left empty call allid
   if(
