@@ -67,8 +67,7 @@ f_plastid<-function(querytext){
   
 }
 
-# #function to validate exclusion input
-# f_validate_excl<-function(exclusionstatement)
+
 
 #function to get specified chromosomes or M or C
 
@@ -119,6 +118,15 @@ f_validate_spec<-function(specify){
   return(TRUE)
 }
 
+f_logictest<-function(logic_var, name_var){
+
+  if (!is.logical(logic_var)) {
+    stop(
+      paste("Logic error: ", name_var, " exclude_nuclear must be TRUE, FALSE or left empty.")
+    )
+  }
+
+}
 
 #MAIN
 gettairid2<-function(querytext, exclude_plastid, exclude_nuclear, specify) {                                               
@@ -130,51 +138,55 @@ gettairid2<-function(querytext, exclude_plastid, exclude_nuclear, specify) {
     ls_geneid<-f_allid(querytext = querytext)
   }
   
-  # return(ls_geneid)
-  # 
+
   #if exclude plastid is called check for FALSE >pass on, TRUE >call f_nuclid, or ELSE >raise error
   if(
     !missing(exclude_plastid) & 
     missing(exclude_nuclear) & 
     missing(specify)){
-    if (!is.logical(exclude_plastid)) {
-      stop("Error: exclude_plastid is an optional variable. If used it needs to be TRUE or FALSE when used.")
-    }
-    if (exclude_plastid==FALSE) {
-      explas=FALSE
-    }
+    
+    #call logic test
+    f_logictest(logic_var = exclude_plastid, name_var = "exclude_plastid")
+    
+    #check if exclude plastid==TRUE >call f_nuclid
     if (exclude_plastid==TRUE) {
-      explas=TRUE
+
       #call f_nuclid
       ls_geneid<-f_nuclid(querytext = querytext)
     }
+    
+    if (exclude_plastid==FALSE) {
+      message("Message: exclude_plastid is optional, when plastid genes are to be included this field can be left empty."
+            )
+      message("No genes ID's are excluded.")
+      #call f_allid
+      ls_geneid<-f_allid(querytext = querytext)
+      
+    }
   }
       
-      # return(ls_geneid)
 
-
-  
-  
   #if exclude nuclear is called check for FALSE >pass on, TRUE >call f_plastid, or ESLE >raise error
   if(
     missing(exclude_plastid) & 
     !missing(exclude_nuclear) & 
     missing(specify)){
-    if (!is.logical(exclude_nuclear)) {
-      stop("Error: exclude_nuclear is an optional variable. If used it needs to be TRUE or FALSE when used.")
-      
-    }
-    if (exclude_nuclear==FALSE) {
-      exnucl=FALSE
-    }
+    #test logic input
+    f_logictest(logic_var = exclude_nuclear,name_var = "exclude nuclear")
+    
+    #check if exclude nuclear is TRUE
     if (exclude_nuclear==TRUE) {
-      exnucl=TRUE
       #call f_plastid function
       ls_geneid<-f_plastid(querytext = querytext)
-      
+    }
+    if (exclude_nuclear==FALSE) {
+      message("Message: exclude_nuclear is optional, when plastid genes are to be included this field can be left empty."
+      )
+      message("No genes ID's are excluded.")
+      #call f_allid
+      ls_geneid<-f_allid(querytext = querytext)
       
     }
-    # return(ls_geneid)
   }
   
   #if specifiy is called check if it is a vector
@@ -191,10 +203,8 @@ gettairid2<-function(querytext, exclude_plastid, exclude_nuclear, specify) {
   
   
   }
-  # return(ls_geneid)
-  
-  ##edge cases
-  #if exclude nuclear is true and specify is specified >raise error
+
+  #if exclude nuclear | exclude plastid is TRUE and specify is specified >raise error
  
   
   if (
@@ -213,16 +223,14 @@ gettairid2<-function(querytext, exclude_plastid, exclude_nuclear, specify) {
      !missing(exclude_nuclear)
   ){ 
     #check for logic
-    if (!is.logical(exclude_plastid)) {
-      #print logic error
-    }
-    if (!is.logical(exclude_nuclear)) {
-      #print logic error
-    }
+    ##excl nucl
+    f_logictest(logic_var = exclude_nuclear, name_var = "exclude_nuclear")
     
+    ##excl plast
+    f_logictest(logic_var = exclude_plastid, name_var = "exclude_plastid")
+
     # exclude only plastid
-   
-    if (
+   if (
       exclude_plastid==TRUE &
       exclude_nuclear==FALSE
     ) {
@@ -243,7 +251,7 @@ gettairid2<-function(querytext, exclude_plastid, exclude_nuclear, specify) {
       
     }
     
-    # exclude neither >message they can be left empty
+    # exclude neither >message they can be left empty >call f_allid
     if (
       exclude_plastid==FALSE &
       exclude_nuclear==FALSE
@@ -266,12 +274,7 @@ gettairid2<-function(querytext, exclude_plastid, exclude_nuclear, specify) {
     }
     }
   
-#   if (exclude_nuclear==TRUE &
-#       exclude_plastid==TRUE) {
-#     stop("Error: When excluding both nuclear and plastid genes there are no genes left to extract.")
-#   }
-#   
-# }
+
   
 return(ls_geneid)
 
