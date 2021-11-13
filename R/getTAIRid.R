@@ -49,9 +49,31 @@ f_nuclid<-function(querytext){
   
 }
 
+
+#function to only get nucleaic genes; NO LIST EXTRACTION
+f_nuclid_single<-function(querytext){
+  ls_geneid<-stringr::str_extract(string = querytext,
+                                      pattern =  
+                                        "AT([:digit:]{1})(G{1})([:digit:]{5})")
+  
+  return(ls_geneid)
+  
+}
+
+
 #function to only get plastid genes
 f_plastid<-function(querytext){
   ls_geneid<-stringr::str_extract_all(string = querytext,
+                                      pattern =  
+                                        "AT(M|C{1})(G{1})([:digit:]{5})")
+  
+  return(ls_geneid)
+  
+}
+
+#function to only get plastid genes; NO LIST EXTRACTION
+f_plastid_single<-function(querytext){
+  ls_geneid<-stringr::str_extract(string = querytext,
                                       pattern =  
                                         "AT(M|C{1})(G{1})([:digit:]{5})")
   
@@ -74,6 +96,23 @@ f_spec<-function(querytext, specify, validation){
                                       )
   return(ls_geneid)
 }
+
+
+#function to get specified chromosomes or M or C; NO LIST EXTRACTION
+
+f_spec_sinle<-function(querytext, specify, validation){
+  
+  #get specs as reg expr
+  specs<-paste(specify, collapse = "|")
+  
+  ls_geneid<-stringr::str_extract(string = querytext,
+                                      pattern =
+                                        paste0("AT([", specs, "]{1})(G{1})([:digit:]{5})")
+  )
+  return(ls_geneid)
+}
+
+
 
 #function checking validity of specified vector
 
@@ -334,6 +373,69 @@ return(ls_geneid)
 }
 
 
+#gettairid for dataframes
+
+#' get tair id, dataframe friendly
+#' 
+#' gets only the first Tairid from string. This makes it more suitable for most dataframe operations
+#' 
+#' 
+#' #' @title  Get TAIR identifier
+#' 
+#' @description 
+#' Extract arabidopsis (TAIR) gene identifiers from a text. 
+#' 
+#' @details 
+#' These identifiers conform to the following structure:
+#' 
+#' "AT" followed by the 
+#' 
+#' Chromosome number, a "M" for mitochondria or a "C" for chloroplast.
+#' 
+#' "G" followed by a
+#' five-digit code, numbered from top/north to bottom/south of chromosome
+#' 
+#' Example of gene id: 
+#' nuclear: AT3G28291
+#' mitochondrial: ATMG00730
+#' 
+#' Does not extract: transposable elements (these do not follow this naming convention)
+#' For more info on TAIR ID nomenclature see https://www.arabidopsis.org/portals/nomenclature/guidelines.jsp
+#' 
+#' 
+
+#' 
+#' @param querytext The text (character string) containing the gene identifiers. Make sure the character string does not contain quotation marks within.
+#' @param exclude_plastid OPTIONAL - When TRUE excludes identifiers of plastid genes from output (mitochondrial or chloroplastic).
+#' @param exclude_nuclear OPTIONAL - When TRUE excludes identifiers of nuclear genes from output.
+#' @param specify OPTIONAL - Allows you to specify chromosome numbers or "M" or "C" to be included in output.
+#' Takes character vector of chromosome numbers and/or "M" and "C" for mitochondrial or chloroplastic gene identifiers respectively.
+#' remember to put chromosome numbers in quotation marks.
+#' 
+#' 
+#' When OPTIONAL variables are left empty all gene identifiers are extracted.
+#' 
+#' @return The first TAIR identifier found in querytext.
+#' @examples 
+#' q<-"AT1G19030 AT3G61800,AT2G02200convallisAT5G23670,ATMG00730loreAT3G28291,AT4G07460,AT3G29ATMG00730"
+#' 
+#' ids<-gettairid(querytext=q)
+#' ids:
+#' "AT1G19030" "
+#' 
+#' ids<-gettairid(querytext = q, exclude_nuclear = TRUE)
+#' ids: "ATMG00730" 
+#' 
+#' ids<-gettairid(querytext = q, specify = c("3", "5"))
+#' ids: "AT3G61800" 
+#' 
+#' 
+#' 
+#' @author Kilian Duijts
+#' 
+#' 
+#' 
+#' @export
 
 
 
