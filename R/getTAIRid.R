@@ -7,7 +7,7 @@
 
 #function to get all tair id's regardless of chromosme or plastid
 
-#' Get_all_id's function
+#' get_all_id's function
 #'
 #' Extracts all TAIR'ids from any texts. Does not work well when applied to columns
 #' @param querytext A string containing one or more TAIR ids
@@ -20,6 +20,22 @@ f_allid<-function(querytext){
                                         "AT(M|C|[:digit:]{1})(G{1})([:digit:]{5})")
   
   return(ls_geneid)
+  
+}
+
+
+#function to extract single geneid; should work well when performed on columns
+#' get single tair id
+#' 
+#' extracts single tair id; since it does not generate a list this funciton gets along better with dataframe operations.
+#' @param querytext A string containing one tair id
+#' 
+#' @export
+f_singleid<-function(querytext){
+  ls_geneid<-stringr::str_extract(string = querytext,
+                                      pattern =  
+                                        "AT(M|C|[:digit:]{1})(G{1})([:digit:]{5})")
+  
   
 }
 
@@ -105,6 +121,8 @@ f_logictest<-function(logic_var, name_var){
 }
 
 #MAIN
+
+
 
 #dependancy
 
