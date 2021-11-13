@@ -5,8 +5,15 @@
 #FUNCTIONS USED IN GETTAIRID
 
 
-
 #function to get all tair id's regardless of chromosme or plastid
+
+#' Get_all_id's function
+#'
+#' Extracts all TAIR'ids from any texts. Does not work well when applied to columns
+#' @param querytext A string containing one or more TAIR ids
+#' 
+#' 
+#' @export
 f_allid<-function(querytext){
   ls_geneid<-stringr::str_extract_all(string = querytext,
                                       pattern =  
