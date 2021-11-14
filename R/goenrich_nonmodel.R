@@ -124,7 +124,7 @@ goseq_nm<-function(  #fuction runs goseq for non-modelspecies
   padj,                     #choose padj thresshold
   geneid2go,                #provide named list. names=geneid, list elements goterms
   bias_cdna,                      #output from f_getgenelength
-  go2geneid
+  testingmethod
 
   
   ){
@@ -150,15 +150,26 @@ goseq_nm<-function(  #fuction runs goseq for non-modelspecies
   
   #perform goseq
   goseq_out<-goseq::goseq(pwf = pw, gene2cat = geneid2go)
-
   
   
   #Calculate adjusted pvalues
-  goseq_out[, "padj_BH"] <- p.adjust(goseq_out[, 2], method = "BH")
+
+  #default to BH
+  if (
+    missing(testingmethod) ) {
+    
+    testingmethod<-"BH"
+  }
+    
+    colpadj<-paste("padj", testingmethod, sep="_")
+    
+    goseq_out[, colpadj] <- p.adjust(goseq_out[, 2], method = testingmethod)
+
+
   
   
   #filer on adjusted pvalues
-  GOenriched <- goseq_out[which(goseq_out[, "padj_BH"] < padj), ]
+  GOenriched <- goseq_out[which(goseq_out[, colpadj] < padj), ]
   
   #get list of quarygenes with associated goterms
   y <- querylist[querylist %in% names(geneid2go)]
