@@ -6,3 +6,8 @@ RoxygenNote: 7.1.2
 Imports: 
     dplyr,
     stringr
+Suggests:
+    Biostrings,
+    goseq
+
+    
