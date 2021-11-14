@@ -93,6 +93,16 @@ f_genelength<-function(fasta_file){
   return(bias_cdna)
 }
 
+#function for exporting pw plot
+
+f_pw<-function(pw, plotname) {
+  
+  png(filename = plotname)
+  goseq::plotPWF(pwf=pw)
+  
+  dev.off()
+  
+}
 
 
 #' @title Gene Ontology testing for non-model species
@@ -111,8 +121,8 @@ f_genelength<-function(fasta_file){
 #' 
 #' @param geneid2go A named list for which the names are geneids and the list elements consist of GO-terms (like so: GO:0006355). Please make sure your geneid's are identical to the query genes.
 #' @param bias_cdna fasta file containing the non-model species geneid's and their sequences. The gene lenght is used for the probabily weight; normalization for gene length.
-#' @param testingmethod OPTIONAL specify what method to use to calculate adjusted pvalues. Arguments are past to p.adjust() from stats; see ?p.adjust for all options. 
-#' If left empty Benjamini & Hochberg ("BH") is used by default.
+#' @param testingmethod OPTIONAL specify what method to use to calculate adjusted pvalues. Arguments are past to p.adjust() from stats; see ?p.adjust for all options. If left empty Benjamini & Hochberg ("BH") is used by default.
+#' @param plotname OPTIONAL specify path/filename.png for the Probability Weighting plot.
 #' 
 #' @author Kilian Duijts
 #' 
@@ -125,7 +135,8 @@ goseq_nm<-function(  #fuction runs goseq for non-modelspecies
   padj,                     #choose padj thresshold
   geneid2go,                #provide named list. names=geneid, list elements goterms
   bias_cdna,                      #output from f_getgenelength
-  testingmethod
+  testingmethod,
+  plotname
 
   
   ){
@@ -143,11 +154,13 @@ goseq_nm<-function(  #fuction runs goseq for non-modelspecies
   
   #Plot pw
   
-  # png(filename = )
-  # plotPWF(pw)
-  # 
-  # dev.off()
-  # 
+  
+  if (!missing(plotname)) {
+    
+    f_pw(pw = pw, plotname = plotname)
+    
+  }
+
   
   #perform goseq
   goseq_out<-goseq::goseq(pwf = pw, gene2cat = geneid2go)
