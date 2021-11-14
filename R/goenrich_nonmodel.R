@@ -62,6 +62,24 @@ f_go2geneid<-function(geneid2go){
   return(go2geneid)
 }
 
+#function to extract genelengths
+
+f_genelength<-function(fasta_file){
+  cdna<-Biostrings::readDNAStringSet(fasta_file)
+  
+  #get the length of each transcript
+  bias_cdna<-Biostrings::width(cdna)
+  
+  
+  #get the corresponding geneid
+  names(bias_cdna)<-tibble(Sp=names(cdna)) %>%
+    separate(Sp,into="Sp2",sep=" ",extra="drop") %>%
+    dplyr::select(Sp2) %>% 
+    as.vector()
+  
+  
+  return(bias_cdna)
+}
 
 
 
@@ -94,16 +112,7 @@ goseq_nm<-function(  #fuction runs goseq for non-modelspecies
 ){
   
   
-  #get the length of each transcript
-  bias_cdna<-Biostrings::width(cdna)
-  
-  
-  #get the corresponding geneid
-  names(bias_cdna)<-tibble(Sp=names(cdna)) %>%
-    separate(Sp,into="Sp2",sep=" ",extra="drop") %>%
-    dplyr::select(Sp2) %>% 
-    as.vector()
-  
+
 
   
   
