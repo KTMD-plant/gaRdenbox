@@ -110,7 +110,8 @@ f_genelength<-function(fasta_file){
 #' # method <currently not available>
 #' 
 #' @param geneid2go A named list for which the names are geneids and the list elements consist of GO-terms (like so: GO:0006355). Please make sure your geneid's are identical to the query genes.
-#' @param cDNA fasta file containing the non-model species geneid's and their sequences. The gene lenght is used for the probabily weight; normalization for gene length.
+#' @param bias_cdna fasta file containing the non-model species geneid's and their sequences. The gene lenght is used for the probabily weight; normalization for gene length.
+#' 
 #' 
 #' @author Kilian Duijts
 #' 
@@ -122,11 +123,14 @@ goseq_nm<-function(  #fuction runs goseq for non-modelspecies
   querylist,                 #provide query list
   padj,                     #choose padj thresshold
   geneid2go,                #provide named list. names=geneid, list elements goterms
-  bias_cdna                      #output from f_getgenelength
-){
+  bias_cdna,                      #output from f_getgenelength
+  go2geneid
+
+  
+  ){
   
   
-  #get querylist to test
+  #get querylist to test in named binary list
   tgl<-as.integer(
     names(bias_cdna) %in% querylist)
   
@@ -136,41 +140,66 @@ goseq_nm<-function(  #fuction runs goseq for non-modelspecies
   #calculate probability weighting
   pw<-goseq::nullp(tgl, bias.data = bias_cdna,plot.fit = TRUE)
   
+  #Plot pw
   
+  # png(filename = )
+  # plotPWF(pw)
+  # 
+  # dev.off()
+  # 
+  
+  #perform goseq
   goseq_out<-goseq::goseq(pwf = pw, gene2cat = geneid2go)
+
   
   
-  
+  #Calculate adjusted pvalues
   goseq_out[, "padj_BH"] <- p.adjust(goseq_out[, 2], method = "BH")
   
+  
+  #filer on adjusted pvalues
   GOenriched <- goseq_out[which(goseq_out[, "padj_BH"] < padj), ]
+  
+  #get list of quarygenes with associated goterms
   y <- querylist[querylist %in% names(geneid2go)]
   
+  
+  #if any go-enrichments are found, report the total, and number of genes
   if(nrow(GOenriched) != 0){
     GOenriched["Total"] <- nrow(pw)
     GOenriched["ClusterSize"] <- length(y)
     
-    
+    #We also want to know what genes contributed to the go term to be deemed enriched.
+    #here we pre-allocate a dataframe to do this.
     go2glgenes<-data.frame("category"=character(),
                            "geneid"=character())
     
+    
+    #generate go2geneid named list to look up connections
+    
+    go2geneid<-f_go2geneid(geneid2go = geneid2go)
+    
+    #Looping through go terms to find the corresponding geneid's
     for (j in GOenriched$category) {
       
       a<-go2geneid[[j]]
+      
+      #check if go-associated genes are present in the querylist
       gogenes<-a[a%in%querylist]%>%
         unlist()
       
-      
+      #add to dataframe
       df<-data.frame("category"=j,
                      "geneid"=paste(gogenes, 
                                     collapse = ","
                      )
       )
-      
+      #append to collection dataframe
       go2glgenes<-rbind(go2glgenes, df)
       
     }
     
+    #join to final output dataframe
     GOenriched<-left_join(GOenriched, go2glgenes)
     
     
