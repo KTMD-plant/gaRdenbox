@@ -108,13 +108,8 @@ goseq_nm<-function(  #fuction runs goseq for non-modelspecies
   querylist,                 #provide query list
   padj,                     #choose padj thresshold
   geneid2GO,                #provide named list. names=geneid, list elements goterms
-  cdna                      #fasta file of sequences
+  bias_cdna                      #output from f_getgenelength
 ){
-  
-  
-
-
-  
   
   
   #get querylist to test
