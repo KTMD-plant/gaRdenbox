@@ -23,7 +23,7 @@ f_gene2go<-function(df_gene2go){
   geneid2go<-list()
   
   i=1
-  for (i in seq(1:length(df_gene2go[,1]))) {
+  for (i in seq(1:nrow(df_gene2go))) {
     
     geneid<- df_gene2go[i,1]%>%paste()
     
@@ -95,14 +95,14 @@ goseq_nm<-function(  #fuction runs goseq for non-modelspecies
   
   
   #get the length of each transcript
-  bias_cdna<-nchar(cdna)
+  bias_cdna<-Biostrings::width(cdna)
   
   
   #get the corresponding geneid
   names(bias_cdna)<-tibble(Sp=names(cdna)) %>%
     separate(Sp,into="Sp2",sep=" ",extra="drop") %>%
     dplyr::select(Sp2) %>% 
-    as_vector()
+    as.vector()
   
 
   
