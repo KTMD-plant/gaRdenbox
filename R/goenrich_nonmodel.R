@@ -3,6 +3,50 @@
 #Author: Kilian Duijts
 
 
+#helper functions
+
+
+#funciton that generates named list of go terms from input df with 2 columns: geneid: geneids, go: "GO:0071396, GO:0042742, GO:0042742, GO:0009737"
+
+#' @title 
+
+f_gene2go<-function(df_gene2go){
+  
+  geneid2go<-list()
+  
+  i=1
+  for (i in seq(1:length(df_gene2go[,1]))) {
+    
+    geneid<- df_gene2go[i,1]%>%paste()
+    
+    golong<-df_gene2go[i,2]%>%paste()
+    
+    goready<-str_extract_all(string = golong,pattern = "GO:[:digit:]{7}")
+    
+    names(goready)<-geneid
+    
+    
+    geneid2go[geneid]<-goready
+    
+    i=i+1
+  }
+  
+  return(geneid2go)
+}
+
+#helper function generating go2geneid list
+
+f_go2geneid<-function(geneid2go){
+  
+  go2geneid<-split(rep(names(geneid2go), lengths(geneid2go)), unlist(geneid2go))
+  
+  
+  return(go2geneid)
+}
+
+
+
+
 #' @title Gene Ontology testing for non-model species
 #' @description 
 #' Re-application of the goseq ("https://bioconductor.org/packages/release/bioc/html/goseq.html") package for use on non model species.
