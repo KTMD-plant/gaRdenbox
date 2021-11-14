@@ -6,6 +6,8 @@ A collection of miscellanious R functions usefull to me. Currently included:
 
 2. gettairid_all, a function to extract Arabidopsis gene ID's from a character string (following the TAIR nomenclature). The function also allowes for the selection of specific chromosomes or plastids. Since this function returns a list of all geneid's in the query string it is more suitable for text extraction.
 
+3. goseq_nm, a function performing goseq for non-model species.
+
 
 You are welcome to use them!
 
