@@ -4,7 +4,7 @@
 \alias{goseq_nm}
 \title{Gene Ontology testing for non-model species}
 \usage{
-goseq_nm(querylist, padj, geneid2go, bias_cdna, testingmethod)
+goseq_nm(querylist, padj, geneid2go, bias_cdna, testingmethod, plotname)
 }
 \arguments{
 \item{querylist}{A list with for each element a non-model species gene id.}
@@ -17,8 +17,9 @@ goseq_nm(querylist, padj, geneid2go, bias_cdna, testingmethod)
 
 \item{bias_cdna}{fasta file containing the non-model species geneid's and their sequences. The gene lenght is used for the probabily weight; normalization for gene length.}
 
-\item{testingmethod}{OPTIONAL specify what method to use to calculate adjusted pvalues. Arguments are past to p.adjust() from stats; see ?p.adjust for all options. 
-If left empty Benjamini & Hochberg ("BH") is used by default.}
+\item{testingmethod}{OPTIONAL specify what method to use to calculate adjusted pvalues. Arguments are past to p.adjust() from stats; see ?p.adjust for all options. If left empty Benjamini & Hochberg ("BH") is used by default.}
+
+\item{plotname}{OPTIONAL specify path/filename.png for the Probability Weighting plot.}
 }
 \description{
 Re-application of the goseq ("https://bioconductor.org/packages/release/bioc/html/goseq.html") package for use on non model species.
