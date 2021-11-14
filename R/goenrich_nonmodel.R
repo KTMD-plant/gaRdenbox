@@ -111,7 +111,8 @@ f_genelength<-function(fasta_file){
 #' 
 #' @param geneid2go A named list for which the names are geneids and the list elements consist of GO-terms (like so: GO:0006355). Please make sure your geneid's are identical to the query genes.
 #' @param bias_cdna fasta file containing the non-model species geneid's and their sequences. The gene lenght is used for the probabily weight; normalization for gene length.
-#' 
+#' @param testingmethod OPTIONAL specify what method to use to calculate adjusted pvalues. Arguments are past to p.adjust() from stats; see ?p.adjust for all options. 
+#' If left empty Benjamini & Hochberg ("BH") is used by default.
 #' 
 #' @author Kilian Duijts
 #' 
