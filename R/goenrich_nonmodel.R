@@ -68,7 +68,7 @@ f_go2geneid<-function(geneid2go){
 #' 
 #' 
 #' @export
-non_model_goseq<-function(  #fuction runs goseq for non-modelspecies
+goseq_nm<-function(  #fuction runs goseq for non-modelspecies
   querylist,                 #provide query list
   padj,                     #choose padj thresshold
   geneid2GO,                #provide named list. names=geneid, list elements goterms
