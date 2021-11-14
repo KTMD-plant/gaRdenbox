@@ -20,10 +20,10 @@
 #' @param geneid2GO A named list for which the names are geneids and the list elements consist of GO-terms (like so: GO:0006355). Please make sure your geneid's are identical to the query genes.
 #' @param cDNA fasta file containing the non-model species geneid's and their sequences. The gene lenght is used for the probabily weight; normalization for gene length.
 #' 
+#' @author Kilian Duijts
 #' 
-
-
-
+#' 
+#' @export
 non_model_goseq<-function(  #fuction runs goseq for non-modelspecies
   querylist,                 #provide query list
   padj,                     #choose padj thresshold
