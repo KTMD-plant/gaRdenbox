@@ -7,6 +7,7 @@ A collection of miscellanious R functions usefull to me. Currently included:
 3. non_model_goseq, a function to perform Gene Ontology enrichment tests on non-model species.
 
 
+
 You are welcome to use them!
 
 To install the package please run:
@@ -14,5 +15,3 @@ To install the package please run:
 >install.packages("devtools") 
 
 >devtools::install_github("KTMD-plant/gaRdenbox")
-
-
