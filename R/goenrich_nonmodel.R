@@ -109,7 +109,7 @@ f_genelength<-function(fasta_file){
 #' 
 #' # method <currently not available>
 #' 
-#' @param geneid2GO A named list for which the names are geneids and the list elements consist of GO-terms (like so: GO:0006355). Please make sure your geneid's are identical to the query genes.
+#' @param geneid2go A named list for which the names are geneids and the list elements consist of GO-terms (like so: GO:0006355). Please make sure your geneid's are identical to the query genes.
 #' @param cDNA fasta file containing the non-model species geneid's and their sequences. The gene lenght is used for the probabily weight; normalization for gene length.
 #' 
 #' @author Kilian Duijts
@@ -121,7 +121,7 @@ f_genelength<-function(fasta_file){
 goseq_nm<-function(  #fuction runs goseq for non-modelspecies
   querylist,                 #provide query list
   padj,                     #choose padj thresshold
-  geneid2GO,                #provide named list. names=geneid, list elements goterms
+  geneid2go,                #provide named list. names=geneid, list elements goterms
   bias_cdna                      #output from f_getgenelength
 ){
   
