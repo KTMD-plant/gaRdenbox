@@ -23,7 +23,7 @@ f_gene2go<-function(df_gene2go){
   geneid2go<-list()
   
   i=1
-  for (i in seq(1:length(df_gene2go[,1]))) {
+  for (i in seq(1:nrow(df_gene2go))) {
     
     geneid<- df_gene2go[i,1]%>%paste()
     
