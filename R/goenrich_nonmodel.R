@@ -15,7 +15,7 @@
 #' 
 #' 
 #' @param df_gene2go takes a dataframe of two columns. The first column should contain only single geneids. The second column should contain a string containing GO:terms separated by ",".
-#' 
+#' @import stringr
 #' 
 #' @export
 f_gene2go<-function(df_gene2go){
@@ -64,11 +64,23 @@ f_go2geneid<-function(geneid2go){
 
 #function to extract genelengths
 
+#' @title Extract gene length from fasta file
+#' 
+#' @description Extracts length of genes from fasta file into a named list.
+#' 
+#' @details uses biostrings to import fastafiles
+#' 
+#' @param fasta_file Path to a fasta file containing the genes of interest
+#' 
+#' @import Biostrings readDNAstringSet()
+#' @import tidyverse
+#' 
+#' @export
 f_genelength<-function(fasta_file){
   cdna<-Biostrings::readDNAStringSet(fasta_file)
   
   #get the length of each transcript
-  bias_cdna<-Biostrings::width(cdna)
+  bias_cdna<-nchar(cdna)
   
   
   #get the corresponding geneid
@@ -101,6 +113,8 @@ f_genelength<-function(fasta_file){
 #' @param cDNA fasta file containing the non-model species geneid's and their sequences. The gene lenght is used for the probabily weight; normalization for gene length.
 #' 
 #' @author Kilian Duijts
+#' 
+#' @import goseq
 #' 
 #' 
 #' @export

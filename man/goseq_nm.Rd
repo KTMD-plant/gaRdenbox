@@ -4,7 +4,7 @@
 \alias{goseq_nm}
 \title{Gene Ontology testing for non-model species}
 \usage{
-goseq_nm(querylist, padj, geneid2GO, cdna)
+goseq_nm(querylist, padj, geneid2GO, bias_cdna)
 }
 \arguments{
 \item{querylist}{A list with for each element a non-model species gene id.}
