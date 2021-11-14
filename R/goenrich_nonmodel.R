@@ -95,7 +95,7 @@ goseq_nm<-function(  #fuction runs goseq for non-modelspecies
   
   
   #get the length of each transcript
-  bias_cdna<-nchar(cdna)
+  bias_cdna<-Biostrings::width(cdna)
   
   
   #get the corresponding geneid
