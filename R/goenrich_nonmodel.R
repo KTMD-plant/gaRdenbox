@@ -77,7 +77,7 @@ f_genelength<-function(fasta_file){
   cdna<-Biostrings::readDNAStringSet(fasta_file)
   
   #get the length of each transcript
-  bias_cdna<-nchar(cdna)
+  bias_cdna<-Biostrings::width(cdna)
   
   
   #get the corresponding geneid
