@@ -15,7 +15,6 @@
 #' 
 #' 
 #' @param df_gene2go takes a dataframe of two columns. The first column should contain only single geneids. The second column should contain a string containing GO:terms separated by ",".
-#' @import stringr
 #' 
 #' @export
 f_gene2go<-function(df_gene2go){
@@ -72,8 +71,6 @@ f_go2geneid<-function(geneid2go){
 #' 
 #' @param fasta_file Path to a fasta file containing the genes of interest
 #' 
-#' @import Biostrings readDNAstringSet()
-#' @import tidyverse
 #' 
 #' @export
 f_genelength<-function(fasta_file){
@@ -114,7 +111,7 @@ f_genelength<-function(fasta_file){
 #' 
 #' @author Kilian Duijts
 #' 
-#' @import goseq
+#' 
 #' 
 #' 
 #' @export
