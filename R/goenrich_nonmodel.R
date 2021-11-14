@@ -81,11 +81,14 @@ f_genelength<-function(fasta_file){
   
   
   #get the corresponding geneid
-  names(bias_cdna)<-tibble(Sp=names(cdna)) %>%
+  
+  
+  a<-tibble(Sp=names(cdna)) %>%
     separate(Sp,into="Sp2",sep=" ",extra="drop") %>%
     dplyr::select(Sp2) %>% 
     as.vector()
   
+  names(bias_cdna)<-a$Sp2
   
   return(bias_cdna)
 }
