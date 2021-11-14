@@ -102,7 +102,7 @@ goseq_nm<-function(  #fuction runs goseq for non-modelspecies
   names(bias_cdna)<-tibble(Sp=names(cdna)) %>%
     separate(Sp,into="Sp2",sep=" ",extra="drop") %>%
     dplyr::select(Sp2) %>% 
-    as_vector()
+    as.vector()
   
 
   
