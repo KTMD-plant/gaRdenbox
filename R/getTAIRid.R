@@ -421,7 +421,7 @@ return(ls_geneid)
 #' 
 #' ids<-gettairid(querytext=q)
 #' ids:
-#' "AT1G19030" "
+#' "AT1G19030"
 #' 
 #' ids<-gettairid(querytext = q, exclude_nuclear = TRUE)
 #' ids: "ATMG00730" 
