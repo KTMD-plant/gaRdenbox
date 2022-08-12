@@ -57,15 +57,15 @@ f_process_peaks<-function(fl_name, colid, chromosome, start_position_gene, lengt
 #' @param start_position_gene The position on the chromosome used as starting position of the section of interest. If only interested in the promotor use startcodon. If also interested in potenial binding sites in the introns/coding regions provide the position of the stopcodong or 3' UTR.
 #' @param length_upstream The length of promotor sequeance of interest. Provide a negative number when querying for a gene in reverse orientation.
 #'   
-#'   @return dataframe containing peaks and associated transcriptionfactors
+#' @return dataframe containing peaks and associated transcriptionfactors
 #'   
-#'   @example 
+#' @example 
 #'  
 #'  #to be added
 #'  
-#'  @author Kilian Duijts
+#' @author Kilian Duijts
 #'  
-#'  @export
+#' @export
 #' 
 #' 
 #' 
@@ -150,6 +150,8 @@ get_peaks<-function(fl_folder, chromosome, start_position_gene, length_upstream)
 #'   
 #'   @author Kilian Duijts
 #' 
+#' 
+#' @export
 
 #get function including
 
