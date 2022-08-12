@@ -5,10 +5,10 @@
 
 #functions used in GETPEAKS
 
+#helper function
 
 
-
-f_process<-function(fl_name, colid, chromosome, start_position_gene, length_upstream){
+f_process_peaks<-function(fl_name, colid, chromosome, start_position_gene, length_upstream){
   
   #get tf name
   tfname<-dirname(fl_name)%>%dirname()%>%basename()
@@ -43,7 +43,32 @@ f_process<-function(fl_name, colid, chromosome, start_position_gene, length_upst
 
 
 
-
+#' @title get_peaks
+#' 
+#' @description 
+#' Loops through .NarrowPeaks files in input folder and extracts the peaks in the specified (promotor) secition of the genome.
+#' 
+#' @details 
+#' This function has been independently developed to query files from the O'Malley paper ( doi: 10.1016/j.cell.2016.04.038).
+#' Download input data from http://neomorph.salk.edu/dap_web/pages/browse_table_aj.php; in .NarrowPeaks format
+#' 
+#' @param fl_folder directory containining the .NarrowPeak files. The function runs recursive by default (non-recursive currently not supported). When using this function on O'Malley's dataset set the path to "dap_download_may2016_peaks".
+#' @param chromosome chromosome number of the section of interest.
+#' @param start_position_gene The position on the chromosome used as starting position of the section of interest. If only interested in the promotor use startcodon. If also interested in potenial binding sites in the introns/coding regions provide the position of the stopcodong or 3' UTR.
+#' @param length_upstream The length of promotor sequeance of interest. Provide a negative number when querying for a gene in reverse orientation.
+#'   
+#'   @return dataframe containing peaks and associated transcriptionfactors
+#'   
+#'   @example 
+#'  
+#'  #to be added
+#'  
+#'  @author Kilian Duijts
+#'  
+#'  @export
+#' 
+#' 
+#' 
 
 
 
@@ -67,7 +92,7 @@ get_peaks<-function(fl_folder, chromosome, start_position_gene, length_upstream)
   
   #itterate through files
   for (i in fl) {
-    df<-f_process(fl_name = i,
+    df<-f_process_peaks(fl_name = i,
                   colid = colid,
                   chromosome = chromosome,
                   start_position_gene = start_position_gene,
@@ -106,6 +131,25 @@ get_peaks<-function(fl_folder, chromosome, start_position_gene, length_upstream)
   df_total_peaks<-left_join(df_total_peaks, ids)
   return(df_total_peaks)
 }
+
+
+#' @title get_tf_from_peaks
+#' 
+#' @description extracts only the unique geneids and symbols of transcription factors binding in the specified section.
+#' 
+#' @details This function uses get_peaks but returns a dataframe with only the unique geneids and names for the peaks in the section of interest.
+#' 
+#' parameters are identical to get_peaks.
+#' 
+#' @param fl_folder directory containining the .NarrowPeak files. The function runs recursive by default (non-recursive currently not supported). When using this function on O'Malley's dataset set the path to "dap_download_may2016_peaks".
+#' @param chromosome chromosome number of the section of interest.
+#' @param start_position_gene The position on the chromosome used as starting position of the section of interest. If only interested in the promotor use startcodon. If also interested in potenial binding sites in the introns/coding regions provide the position of the stopcodong or 3' UTR.
+#' @param length_upstream The length of promotor sequeance of interest. Provide a negative number when querying for a gene in reverse orientation.
+#'   
+#'   @return dataframe containing associated transcription factor geneid's and symbols.
+#'   
+#'   @author Kilian Duijts
+#' 
 
 #get function including
 
