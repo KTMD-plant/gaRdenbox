@@ -106,7 +106,7 @@ get_peaks<-function(fl_folder, chromosome, start_position_gene, length_upstream)
   
   
   #extract gene ids/synbols
-  df_total_peaks$geneid<-str_extract(string = df_total_peaks$tf, pattern = "^.+(?=_col)")
+  df_total_peaks$geneid<-stringr::str_extract(string = df_total_peaks$tf, pattern = "^.+(?=_col)")
   
   require(org.At.tair.db)
   
@@ -128,7 +128,7 @@ get_peaks<-function(fl_folder, chromosome, start_position_gene, length_upstream)
   ids$map<-toupper(ids$map)
   
   #join back to pk
-  df_total_peaks<-left_join(df_total_peaks, ids)
+  df_total_peaks<-dplyr::left_join(df_total_peaks, ids)
   return(df_total_peaks)
 }
 
