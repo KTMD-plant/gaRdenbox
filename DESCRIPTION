@@ -7,7 +7,7 @@ Imports:
     tidyverse,
     stringr
 Suggests:
+    AnnotationDbi,
     Biostrings,
-    goseq
-
-    
+    goseq,
+    org.At.tair.db
