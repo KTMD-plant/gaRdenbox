@@ -13,17 +13,10 @@ get_peaks(fl_folder, chromosome, start_position_gene, length_upstream)
 
 \item{start_position_gene}{The position on the chromosome used as starting position of the section of interest. If only interested in the promotor use startcodon. If also interested in potenial binding sites in the introns/coding regions provide the position of the stopcodong or 3' UTR.}
 
-\item{length_upstream}{The length of promotor sequeance of interest. Provide a negative number when querying for a gene in reverse orientation.
- 
- @return dataframe containing peaks and associated transcriptionfactors
- 
- @example 
-
-#to be added
-
-@author Kilian Duijts
-
-@export}
+\item{length_upstream}{The length of promotor sequeance of interest. Provide a negative number when querying for a gene in reverse orientation.}
+}
+\value{
+dataframe containing peaks and associated transcriptionfactors
 }
 \description{
 Loops through .NarrowPeaks files in input folder and extracts the peaks in the specified (promotor) secition of the genome.
@@ -31,4 +24,7 @@ Loops through .NarrowPeaks files in input folder and extracts the peaks in the s
 \details{
 This function has been independently developed to query files from the O'Malley paper ( doi: 10.1016/j.cell.2016.04.038).
 Download input data from http://neomorph.salk.edu/dap_web/pages/browse_table_aj.php; in .NarrowPeaks format
+}
+\author{
+Kilian Duijts
 }
