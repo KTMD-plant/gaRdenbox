@@ -49,6 +49,22 @@ mitochondrial: ATMG00730
 Does not extract: transposable elements (these do not follow this naming convention)
 For more info on TAIR ID nomenclature see https://www.arabidopsis.org/portals/nomenclature/guidelines.jsp
 }
+\examples{
+q<-"AT1G19030 AT3G61800,AT2G02200convallisAT5G23670,ATMG00730loreAT3G28291,AT4G07460,AT3G29ATMG00730"
+
+ids<-gettairid(querytext=q)
+ids:
+"AT1G19030"
+
+ids<-gettairid(querytext = q, exclude_nuclear = TRUE)
+ids: "ATMG00730" 
+
+ids<-gettairid(querytext = q, specify = c("3", "5"))
+ids: "AT3G61800" 
+
+
+
+}
 \author{
 Kilian Duijts
 }
